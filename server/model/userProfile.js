@@ -22,8 +22,12 @@ UserProfile.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    other_details: {
-      type: DataTypes.TEXT,
+    image_profile: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    departement: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },

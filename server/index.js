@@ -11,19 +11,19 @@ const Blog = require('./model/blog');
 const DayOffBooking = require('./model/dayOffBooking');
 const PerformanceRating = require('./model/performanceRating');
 const Report = require('./model/report');
-const isAuth = require("./middleware/isAuth");
+// const isAuth = require("./middleware/isAuth");
 
 
 app.use(express.json());
 app.use(cors());
-app.use(isAuth('hr'));
+// app.use(isAuth('hr'));
 app.use(route);
 
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    return sequelize.sync({ force: true }); 
-  })
+    return sequelize.sync({ force: false }); // Change this to "true" when You need to drop and change Tables (auto change)
+  })//Keep it False if you are testing
   .then(() => {
     console.log('Models are synchronized with the database.');
     app.listen(PORT, function () {
