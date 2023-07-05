@@ -22,7 +22,7 @@ app.use(route);
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    return sequelize.sync({ force: false }); // Change this to "true" when You need to drop and change Tables (auto change)
+    return sequelize.sync({ force: false}); // Change this to "true" when You need to drop and change Tables (auto change)
   })//Keep it False if you are testing
   .then(() => {
     console.log('Models are synchronized with the database.');

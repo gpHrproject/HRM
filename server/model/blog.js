@@ -3,6 +3,7 @@ const sequelize = require('../db/db');
 const User = require('./user');
 
 class Blog extends Model {}
+
 Blog.init(
   {
     title: {
@@ -22,6 +23,10 @@ Blog.init(
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+    blog_image: {
+      type: DataTypes.STRING, 
+      allowNull: true,
     },
   },
   { sequelize, modelName: 'blog' }
