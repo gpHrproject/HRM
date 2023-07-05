@@ -35,11 +35,11 @@ router.get('/users', UserController.getAllUsers);
 // router.delete('/reports/:id', ReportController.deleteReport);
 
 // // Day Off Booking routes
-// router.get('/day-off-bookings', DayOffBookingController.getAllDayOffBookings);
-// router.get('/day-off-bookings/:id', DayOffBookingController.getDayOffBookingById);
-// router.post('/day-off-bookings', DayOffBookingController.createDayOffBooking);
-// router.put('/day-off-bookings/:id', DayOffBookingController.updateDayOffBooking);
-// router.delete('/day-off-bookings/:id', DayOffBookingController.deleteDayOffBooking);
+router.get('/day-off-bookings', DayOffBookingController.getAllDayOffBookings);
+router.get('/day-off-bookings/:id', DayOffBookingController.getDayOffBookingById);
+router.post('/day-off-bookings', DayOffBookingController.createDayOffBooking);
+router.put('/day-off-bookings/:id', DayOffBookingController.updateDayOffBooking);
+router.delete('/day-off-bookings/:id', DayOffBookingController.deleteDayOffBooking);
 
 // // Attendance routes
 // router.get('/attendances', AttendanceController.getAllAttendances);
