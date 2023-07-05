@@ -7,6 +7,8 @@ import UserProfile from './components/pages/Profile';
 import Register from './components/Auth/Register/Register';
 import LogIn from './components/Auth/LogIn/LogIn';
 import axios from 'axios';
+import Blog from './components/Blog/Blog';
+import Booking from './components/Booking/Booking';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
@@ -43,6 +45,9 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/blog" element={<Blog/>}/>
+        <Route path="/booking" element={<Booking/>}/>
+
       </Routes>
     </BrowserRouter>
   );
