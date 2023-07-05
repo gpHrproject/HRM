@@ -2,9 +2,9 @@ const DayOffBooking = require("../model/dayOffBooking.js");
 
 const DayOffBookingController = {
   async createDayOffBooking(req, res) {
-    const { start_date, end_date, status } = req.body;
+    const { start_date, end_date, status,user_id } = req.body;
     try {
-      const dayOffBooking = await DayOffBooking.create({ start_date, end_date, status });
+      const dayOffBooking = await DayOffBooking.create({start_date, end_date, status,user_id });
       res.status(200).json({ message: 'Day off booking created successfully', data: dayOffBooking });
     } catch (error) {
       console.error('Error creating day off booking:', error);
