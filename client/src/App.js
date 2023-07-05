@@ -1,10 +1,51 @@
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar';
+import Home from './components/pages/Home';
+import UserProfile from './components/pages/Profile';
+import Register from './components/Auth/Register/Register';
+import LogIn from './components/Auth/LogIn/LogIn';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const getAllUsers = () => {
+        axios
+          .get('http://localhost:3000/users', config)
+          .then((res) => {
+            setUserData(res.data); // Use res.data instead of res.userData
+            console.log(res.data); // Log the received data instead of userData
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      getAllUsers();
+    }
+  }, []);
+  
+
   return (
-    <div className="App">
-    
-    </div>
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/profile" element={<UserProfile />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
