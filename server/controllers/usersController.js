@@ -86,7 +86,9 @@ const UserController = {
       }
     },
   ],
-  deleteUser: [
+
+
+ deleteUser: [
     isAuth("hr"),
     async (req, res) => {
       const { id } = req.params;
@@ -100,6 +102,8 @@ const UserController = {
     },
   ],
 
+
+  
   // logIn / Register
   register: async (req, res) => {
     const { email, password } = req.body;

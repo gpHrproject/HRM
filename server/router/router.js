@@ -21,11 +21,11 @@ router.get('/users', UserController.getAllUsers);
 // router.put('/users/:id/profile', UserProfileController.updateUserProfile);
 
 // // Blog routes
-// router.get('/blogs', BlogController.getAllBlogs);
-// router.get('/blogs/:id', BlogController.getBlogById);
-// router.post('/blogs', BlogController.createBlog);
-// router.put('/blogs/:id', BlogController.updateBlog);
-// router.delete('/blogs/:id', BlogController.deleteBlog);
+router.get('/blogs', BlogController.getAllBlogs);
+router.get('/blogs/:id', BlogController.getBlogById);
+router.post('/blogs', BlogController.createBlog);
+router.put('/blogs/:id', BlogController.updateBlog);
+router.delete('/blogs/:id', BlogController.deleteBlog);
 
 // // Report routes
 // router.get('/reports', ReportController.getAllReports);
