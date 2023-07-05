@@ -28,11 +28,11 @@ router.put('/blogs/:id', BlogController.updateBlog);
 router.delete('/blogs/:id', BlogController.deleteBlog);
 
 // // Report routes
-// router.get('/reports', ReportController.getAllReports);
-// router.get('/reports/:id', ReportController.getReportById);
-// router.post('/reports', ReportController.createReport);
-// router.put('/reports/:id', ReportController.updateReport);
-// router.delete('/reports/:id', ReportController.deleteReport);
+router.get('/reports', ReportController.getAllReports);
+router.get('/reports/:id', ReportController.getReportById);
+router.post('/reports', ReportController.createReport);
+router.put('/reports/:id', ReportController.updateReport);
+router.delete('/reports/:id', ReportController.deleteReport);
 
 // // Day Off Booking routes
 router.get('/day-off-bookings', DayOffBookingController.getAllDayOffBookings);
