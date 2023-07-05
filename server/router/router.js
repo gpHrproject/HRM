@@ -17,8 +17,8 @@ router.get('/users', UserController.getAllUsers);
  router.post('/register',UserController.register)
  router.post('/login',UserController.login)
 // User profile routes
-// router.get('/users/:id/profile', UserProfileController.getUserProfile);
-// router.put('/users/:id/profile', UserProfileController.updateUserProfile);
+ router.get('/users/:id/profile', UserProfileController.getUserProfile);
+ router.put('/users/:id/profile', UserProfileController.updateUserProfile);
 
 // // Blog routes
 // router.get('/blogs', BlogController.getAllBlogs);
