@@ -1,20 +1,18 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Home from './components/pages/Home';
-
+import UserProfile from './components/pages/Profile';
 
 const App = () => (
   <BrowserRouter>
-   <NavBar/>
-
+    <NavBar />
     <Routes>
-      <Route path="/" element={<Home/>} />
-      {/* <Route path="/about" element={<About />} />
-      <Route path="*" element={<NotFound />} /> */}
+      <Route path="/" element={<Home />} />
+      <Route path="/profile" element={<UserProfile />} />
     </Routes>
   </BrowserRouter>
 );
 
-export default App
+export default App;
