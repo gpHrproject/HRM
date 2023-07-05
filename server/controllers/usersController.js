@@ -152,7 +152,7 @@ const UserController = {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Generate JWT token
+    // Generate JWT token : contains : user_id and role
     const token = jwt.sign({ userId: user.id, role: user.role }, 'your-secret-key', { expiresIn: '1h' });
 
     // Send the token as a bearer token in the response headers
