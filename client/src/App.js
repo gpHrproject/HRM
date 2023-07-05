@@ -10,20 +10,30 @@ import axios from 'axios';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
-   
-  useEffect (()=>{
-   const getAllUsers =()=>{
-    axios.get('http://localhost:3000/users')
-    .then((res)=>{
-      setUserData(res.userData)
-      console.log(userData)
-    })
-    .catch ((err)=>{
-      console.log(err)
-    })
-   }
-   getAllUsers()
-  },[])
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const getAllUsers = () => {
+        axios
+          .get('http://localhost:3000/users', config)
+          .then((res) => {
+            setUserData(res.data); // Use res.data instead of res.userData
+            console.log(res.data); // Log the received data instead of userData
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      getAllUsers();
+    }
+  }, []);
+  
 
   return (
     <BrowserRouter>
