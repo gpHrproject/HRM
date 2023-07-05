@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cloudinary": "^1.37.3",
     "cors": "^2.8.5",
     "denque": "^2.1.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "generate-function": "^2.3.1",
     "is-property": "^1.0.2",
