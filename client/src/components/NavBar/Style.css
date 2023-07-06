@@ -1,6 +1,7 @@
 
   
   .nav-Container-ele {
+    background-color: whitesmoke;
     list-style-type: none;
     display: flex;
     justify-content: space-between;
