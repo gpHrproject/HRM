@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 
 
+
 const sequelize = new Sequelize('hrm', 'root', 'yacine251203**', {
+
 
   host: 'localhost',
   dialect: 'mysql',

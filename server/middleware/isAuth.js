@@ -15,8 +15,12 @@ const isAuth = (requiredRole) => (req, res, next) => {
     const payload = jwt.verify(token, 'your-secret-key');
 
     //  is authorized
-    if (payload.role !== requiredRole) {
+     if (requiredRole !== 'any' && payload.role !== requiredRole) {
       return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    if (payload.id !== req.params.id) {
+      return res.status(403).json({ error: 'Unauthorized access to user profile' });
     }
 
     // Pass it to the  middleware 
