@@ -1,51 +1,60 @@
 import React, { useEffect, useState } from "react";
-// import PostDetails from "./PostDetails";
+import PostDetails from "./PostDetails";
 import axios from "axios";
+import Update from "./Update";
+import Post from "./Post";
+import { Link } from 'react-router-dom'
+
+
+
 
 const Blog = () => {
   const [data, setData] = useState([]);
-  // const [trigger, setTrigger] = useState(false);
-  // const [image, setImage] = useState("");
+  const [trigger, setTrigger] = useState(false);
+  const [image, setImage] = useState("");
 
+  const setFileTobse = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+  };
 
-  // const setFileTobse = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setImage(reader.result);
-  //   };
-  // };
-  
-  // console.log(data);
-
-
-  // const handleImage = (e) => {
-  //   const file = e.target.file[0];
-  //   setFileTobse(file);
-  //   console.log(file);
-  // };
-
-
+  const handleImage = (e) => {
+    const file = e.target.file[0];
+    setFileTobse(file);
+    console.log(file);
+  };
 
   useEffect(() => {
     fetch();
-    // setTrigger(false);
-  }, []);
-
+    setTrigger(false);
+  }, [trigger]);
 
   const fetch = () => {
     axios
       .get("http://localhost:3000/blogs")
       .then((res) => {
-        console.log(res.data);
+        setData(res.data);
+        console.log(res.data.content);
+
         
       })
       .catch((err) => console.log(err));
   };
-
-  // return <div>
-  //   <PostDetails data={data} handleImage={handleImage} setTrigger={setTrigger}/>
-  // </div>;
+console.log(data)
+  return (
+    <div>
+<PostDetails
+  data={data}
+  setTrigger={setTrigger}
+/>
+<Update setTrigger={setTrigger}/>
+{/* <Post setTrigger={setTrigger}/> */}
+<button  className='button'>  <Link to={`/Post`}>Post</Link>    </button>
+    </div>
+  );
 };
 
 export default Blog;

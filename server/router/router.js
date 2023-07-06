@@ -20,7 +20,7 @@ router.get('/users', UserController.getAllUsers);
  router.get('/users/:id/profile', UserProfileController.getUserProfile);
  router.put('/users/:id/profile', UserProfileController.updateUserProfile);
 
-// // Blog routes
+// Blog routes
 router.get('/blogs', BlogController.getAllBlogs);
 router.get('/blogs/:id', BlogController.getBlogById);
 router.post('/blogs', BlogController.createBlog);
