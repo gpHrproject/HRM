@@ -16,7 +16,7 @@ const Navbar = ({ role }) => {
     <nav className="nav-Container">
       <ul className="nav-Container-ele">
         <li>
-          <a href="/blogc">Blog</a>
+          <a href="/blog">Blog</a>
         </li>
 
         {token && (

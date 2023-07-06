@@ -13,6 +13,7 @@ const Blog = () => {
   const [trigger, setTrigger] = useState(false);
   const [image, setImage] = useState("");
 
+
   const setFileTobse = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -21,16 +22,19 @@ const Blog = () => {
     };
   };
 
+
   const handleImage = (e) => {
     const file = e.target.file[0];
     setFileTobse(file);
     console.log(file);
   };
 
+
   useEffect(() => {
     fetch();
     setTrigger(false);
   }, [trigger]);
+
 
   const fetch = () => {
     axios
@@ -44,6 +48,8 @@ const Blog = () => {
       .catch((err) => console.log(err));
   };
 console.log(data)
+
+
   return (
     <div>
 <PostDetails
@@ -51,8 +57,8 @@ console.log(data)
   setTrigger={setTrigger}
 />
 <Update setTrigger={setTrigger}/>
-{/* <Post setTrigger={setTrigger}/> */}
-<button  className='button'>  <Link to={`/Post`}>Post</Link>    </button>
+<Post setTrigger={setTrigger}/>
+
     </div>
   );
 };
