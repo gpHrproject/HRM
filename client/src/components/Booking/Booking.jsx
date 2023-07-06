@@ -30,7 +30,7 @@ const Booking = () => {
         console.error(error);
       });
   };
-
+  
   return (
     <div>
   <RangePicker onChange={handleDateChange} />
