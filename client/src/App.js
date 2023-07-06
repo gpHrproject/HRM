@@ -39,7 +39,7 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Blog />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<UserProfile user={userData} />} />
