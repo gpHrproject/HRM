@@ -7,6 +7,7 @@ function Post({ setTrigger }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [blog_image, setBlog_image] = useState("");
+  const [model, setModel] = useState(false);
 
   const navigation = useNavigate();
 
@@ -20,59 +21,75 @@ function Post({ setTrigger }) {
       })
       .then((res) => {
         console.log(res);
-        window.alert("item added successfully");
-        navigation("/");
+        navigation("/blog");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const toggleModel = () => {
+    setModel(!model);
+  };
+
   return (
-    <div>
-      <div className="FormGroup">
-        <label className="Label" htmlFor="title">
-          Title:
-        </label>
-        <input
-          className="Input"
-          type="text"
-          id="title"
-          name="title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-
-      <div className="FormGroup">
-        <label className="Label" htmlFor="title">
-          Content:
-        </label>
-        <input
-          className="Input"
-          type="text"
-          id="content"
-          name="content"
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </div>
-
-      <div className="FormGroup">
-        <label className="Label" htmlFor="image">
-          set your image:
-        </label>
-        <input
-          className="Input"
-          type="text"
-          id="image"
-          name="image"
-          onChange={(e) => setBlog_image(e.target.value)}
-        />
-      </div>
-
-      <button className="Button" type="submit" onClick={() => handleSubmit()}>
-        POST YOUR BLOG
+    <>
+      <button onClick={toggleModel} className="btn-model">
+        Post
       </button>
-    </div>
+
+      {model && (
+        <div className="main">
+          <div className="post-container">
+            <div>
+              <label htmlFor="title">Title:</label>
+              <input
+                className="Input"
+                type="text"
+                id="blog-title"
+                name="title"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="title">Content:</label>
+              <input
+                className="Input"
+                type="text"
+                id="blog-content"
+                name="content"
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="image">Set your image:</label>
+              <input
+                className="Input"
+                type="text"
+                id="blog-image"
+                name="image"
+                onChange={(e) => setBlog_image(e.target.value)}
+              />
+            </div>
+            <button
+              className="Button"
+              type="submit"
+              onClick={() => {
+                handleSubmit();
+                toggleModel();
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
 export default Post;
+
+
+
+

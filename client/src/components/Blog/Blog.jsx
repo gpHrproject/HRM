@@ -3,7 +3,7 @@ import PostDetails from "./PostDetails";
 import axios from "axios";
 import Update from "./Update";
 import Post from "./Post";
-import { Link } from 'react-router-dom'
+
 
 
 
@@ -41,13 +41,13 @@ const Blog = () => {
       .get("http://localhost:3000/blogs")
       .then((res) => {
         setData(res.data);
-        console.log(res.data.content);
+        console.log("res data",res.data)
 
         
       })
       .catch((err) => console.log(err));
   };
-console.log(data)
+
 
 
   return (
