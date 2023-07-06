@@ -1,0 +1,21 @@
+.button {
+    /* padding: 10px;
+    border: none;
+    background-color: teal;
+    cursor: pointer;
+    color: white; */
+  }
+
+.container{
+    display: flex;
+    /* margin-top: 50px;
+    flex-direction: column;
+    gap: 150px; */
+}
+
+.image{
+    width: 20%;
+  
+    
+}  
+

@@ -1,5 +1,5 @@
-const cloudinary = require('../db/cloudinary');
-const Blog = require('../model/blog');
+const cloudinary = require("../db/cloudinary");
+const Blog = require("../model/blog");
 
 module.exports = {
   getAllBlogs: async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = {
       const blogs = await Blog.findAll();
       res.json(blogs);
     } catch (err) {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -18,10 +18,10 @@ module.exports = {
       if (blog) {
         res.json(blog);
       } else {
-        res.status(404).json({ error: 'Blog not found' });
+        res.status(404).json({ error: "Blog not found" });
       }
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -30,9 +30,9 @@ module.exports = {
 
     try {
       await Blog.destroy({ where: { id } });
-      res.json({ message: 'Blog deleted successfully' });
+      res.json({ message: "Blog deleted successfully" });
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -41,22 +41,19 @@ module.exports = {
 
     try {
       const result = await cloudinary.uploader.upload(blog_image, {
-        folder: 'blog_images',
+        folder: "blog_images",
       });
-      
 
       const blog = await Blog.create({
         title,
         content,
         blog_image: result.secure_url,
-        
       });
-      console.log("onsole.log(result)",result)
+      console.log("console.log(result)", result);
       res.json(blog);
     } catch (error) {
-      
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -67,12 +64,12 @@ module.exports = {
     try {
       const blog = await Blog.findByPk(id);
       if (!blog) {
-        return res.status(404).json({ error: 'Blog not found' });
+        return res.status(404).json({ error: "Blog not found" });
       }
 
       if (blog_image !== blog.blog_image) {
         const result = await cloudinary.uploader.upload(blog_image, {
-          folder: 'blog_images',
+          folder: "blog_images",
         });
         blog.blog_image = result.secure_url;
       }
@@ -85,7 +82,7 @@ module.exports = {
       res.json(blog);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 };
