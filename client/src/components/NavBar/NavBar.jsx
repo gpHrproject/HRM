@@ -21,7 +21,7 @@ const Navbar = ({ role }) => {
 
         {token && (
           <li>
-            <a href="/manageEmployee">Manage Employees</a>
+            <a href="/ManageUsers">Manage Employees</a>
           </li>
         )}
 
