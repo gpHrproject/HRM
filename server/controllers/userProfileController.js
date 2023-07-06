@@ -1,20 +1,33 @@
+const isAuth = require("../middleware/isAuth");
 const User = require("../model/user");
+const UserProfile=require("../model/userProfile")
+
 
 const UserProfileController = {
-    getUserProfile: async (req, res) => {
-    const { id } = req.params;
-    try {
-      const user = await User.findByPk(id);
-      res.json(user);
-      if (user) {
-        res.json(user);
-      } else {
-        res.status(404).json({ error: "User not found" });
+
+  getUserProfile: [
+    isAuth('any'),
+    async (req, res) => {
+      const { id } = req.params;
+      try {
+        const userProfile = await UserProfile.findOne({
+          where: { user_id: id },
+        });
+
+        if (userProfile) {
+          res.json(userProfile);
+        } else {
+          res.status(404).json({ error: "User profile not found" });
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
       }
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
+    },
+  ],
+  
+  
+  
   updateUserProfile:async (req,res)=>{
     const { id } = req.params;
     const newdata = req.body;
