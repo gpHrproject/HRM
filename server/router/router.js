@@ -41,18 +41,18 @@ router.post('/day-off-bookings', DayOffBookingController.createDayOffBooking);
 router.put('/day-off-bookings/:id', DayOffBookingController.updateDayOffBooking);
 router.delete('/day-off-bookings/:id', DayOffBookingController.deleteDayOffBooking);
 
-// // Attendance routes
-// router.get('/attendances', AttendanceController.getAllAttendances);
-// router.get('/attendances/:id', AttendanceController.getAttendanceById);
-// router.post('/attendances', AttendanceController.markAttendance);
-// router.put('/attendances/:id', AttendanceController.updateAttendance);
-// router.delete('/attendances/:id', AttendanceController.deleteAttendance);
+// Attendance routes
+router.get('/attendances', AttendanceController.getAllAttendances);
+router.get('/attendances/:id', AttendanceController.getAttendanceById);
+router.post('/attendances', AttendanceController.markAttendance);
+router.put('/attendances/:id', AttendanceController.updateAttendance);
+router.delete('/attendances/:id', AttendanceController.deleteAttendance);
 
-// // Performance Rating routes
-// router.get('/performance-ratings', PerformanceRatingController.getAllPerformanceRatings);
-// router.get('/performance-ratings/:id', PerformanceRatingController.getPerformanceRatingById);
-// router.post('/performance-ratings', PerformanceRatingController.createPerformanceRating);
-// router.put('/performance-ratings/:id', PerformanceRatingController.updatePerformanceRating);
-// router.delete('/performance-ratings/:id', PerformanceRatingController.deletePerformanceRating);
+// Performance Rating routes
+router.get('/performance-ratings', PerformanceRatingController.getAllPerformanceRatings);
+router.get('/performance-ratings/:id', PerformanceRatingController.getPerformanceRatingById);
+router.post('/performance-ratings', PerformanceRatingController.createPerformanceRating);
+router.put('/performance-ratings/:id', PerformanceRatingController.updatePerformanceRating);
+router.delete('/performance-ratings/:id', PerformanceRatingController.deletePerformanceRating);
 
 module.exports = router;
