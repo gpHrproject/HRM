@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const UserProfile = require("../model/userProfile");
 const isAuth = require("../middleware/isAuth");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -40,29 +41,41 @@ const UserController = {
       const { username, email, password } = req.body;
   
       try {
-       
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
           return res.status(409).json({ error: 'Email already registered' });
         }
   
-       
         const hashedPassword = await bcrypt.hash(password, 10);
   
-       
         const newUser = await User.create({
           username,
           email,
           password: hashedPassword,
-          role:"user",
+          role: 'user',
+        });
+        
+      
+  
+        const userProfile = await UserProfile.create({
+          full_name: '', 
+          email: newUser.email,
+          phone_number:'',
+          address:'',
+          image_profile:'',
+          departement:''
         });
   
-        res.json(newUser);
+        await newUser.setUserProfile(userProfile); // create in the same time
+  
+        res.json(userProfile);
       } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Internal server error' });
       }
     },
   ],
+  
   //user can update his profile
    updateUser : [
     isAuth('hr'),
@@ -157,6 +170,7 @@ const UserController = {
 
     // Send the token as a bearer token in the response headers
     res.header('Authorization', `Bearer ${token}`).json(token);
+    console.log(jwt.verify(token, 'your-secret-key').userId)
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
