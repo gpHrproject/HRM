@@ -1,41 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
+import jwt_decode from "jwt-decode";
 import "./userStyle.css";
-const UserProfile = ({user}) => {
-  console.log('user',user)
+import EditProfilePopup from "./EditProfile";
+
+const UserProfile = ({ user }) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
+  const currentUser = user.find((e) => e.id === userId);
+
+  const [showEditPopup, setShowEditPopup] = useState(false);
+
+  if (!currentUser) {
+    return <div>No user found</div>;
+  }
+
   return (
-    user.map((e)=>{
-      return(
-        <div className="user-profile">
-        <h2>welcome:{e.username}</h2> 
-        <div className="container">
-          <div className="profile-field">
-            <img
-              id="user-img"
-              src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
-              alt="Profile"
-            />
-          </div>
-          <div className="profile-info">
-            <div className="profile-field">
-              <label>Full Name:</label>
-              { <span>{e.username}</span> }
-            </div>
-            <div className="profile-field">
-              <label>Email:</label>
-              {<span>{e.email}</span> }
-            </div>
-            <div className="profile-field">
-              <label>Department:</label>
-              { <span>{e.departement}</span> }
-            </div>
-          </div>
+    <div className="user-profile">
+      <h2>Welcome: {currentUser.username}</h2>
+      <div className="container">
+        <div className="profile-field">
+          <img
+            id="user-img"
+            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
+            alt="Profile"
+          />
         </div>
-        <div>
-          <button>Click Me ! </button>
+        <div className="profile-info">
+          <div className="profile-field">
+            <label>Full Name:</label>
+            <span>{currentUser.username}</span>
+          </div>
+          <div className="profile-field">
+            <label>Email:</label>
+            <span>{currentUser.email}</span>
+          </div>
+          <div className="profile-field">
+            <label>Department:</label>
+            <span>{currentUser.department}</span>
+          </div>
+          <div className="profile-field">
+            <label>phoneNumber:</label>
+            <span>{currentUser.department}</span>
+          </div>
+          <div className="profile-field">
+            <label>adress:</label>
+            <span>{currentUser.department}</span>
+          </div>
+          
         </div>
       </div>
-      )
-    })
+      <div>
+        <button onClick={() => setShowEditPopup(true)}>Edit Profile</button>
+      </div>
+      {showEditPopup && <EditProfilePopup currentUser={currentUser} setShowEditPopup={setShowEditPopup} />}
+    </div>
   );
 };
 

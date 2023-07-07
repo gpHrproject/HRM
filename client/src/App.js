@@ -10,6 +10,7 @@ import Blog from "./components/Blog/Blog";
 import Booking from "./components/Booking/Booking";
 import ManageUsers from "./components/ManageUsers/ManageUsers";
 import Reporting from "./components/Reporting/Reporting";
+import CreateUser from "./components/createUser/CreateUser";
 
 const App = () => {
   const [userData, setUserData] = useState([]);
@@ -26,8 +27,8 @@ const App = () => {
         axios
           .get("http://localhost:3000/users", config)
           .then((res) => {
-            setUserData(res.data); // Use res.data instead of res.userData
-            console.log(res.data); // Log the received data instead of userData
+            setUserData(res.data); 
+            console.log(res.data); 
           })
           .catch((err) => {
             console.log(err);
@@ -42,14 +43,13 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/blog" element={<Blog />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<UserProfile user={userData} />} />
         <Route path="/ManageUsers" element={<ManageUsers user={userData} />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/reporting" element={ <Reporting />} />
-        
-
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/CreateUser" element={<CreateUser />} />
       </Routes>
     </BrowserRouter>
   );

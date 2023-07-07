@@ -16,9 +16,12 @@ const Navbar = ({ role }) => {
     <nav className="nav-Container">
       <ul className="nav-Container-ele">
         <li>
-          <a href="/blog">Blog</a>
+          <Link to="/blog">Blog</Link>
         </li>
-
+       
+        <li>
+          <Link to="/booking">dayOff</Link>
+        </li>
         {token && (
           <li>
             <a href="/ManageUsers">Manage Employees</a>
@@ -36,7 +39,7 @@ const Navbar = ({ role }) => {
               <div className="dropdown">
                 <div className="dropdown-content">
                   <div>
-                    <Link to="/profile">User Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </div>
                   <div>
                     <Link onClick={handleLogout} to="/login">
