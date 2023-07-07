@@ -1,9 +1,11 @@
 import React from "react";
+import CreateUser from "../createUser/CreateUser.jsx"
 import './StyleManageUsers.css'
 const ManageUsers = ({ user }) => {
   console.log("ManageUsers", user);
   return (
     <div className="manage-users">
+      <CreateUser/>
       <table className="user-table">
         <thead>
           <tr>

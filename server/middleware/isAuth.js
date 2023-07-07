@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const isAuth = (requiredRole) => (req, res, next) => {
-  // Get the bearer token from the request headers
   const bearerToken = req.headers.authorization;
 
   if (!bearerToken || !bearerToken.startsWith('Bearer ')) {
@@ -11,19 +10,19 @@ const isAuth = (requiredRole) => (req, res, next) => {
   const token = bearerToken.split(' ')[1];
 
   try {
-    // Verify token 
     const payload = jwt.verify(token, 'your-secret-key');
 
-    //  is authorized
-     if (requiredRole !== 'any' && payload.role !== requiredRole) {
+    // Check  role 
+    if (requiredRole !== 'any' && payload.role !== requiredRole) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
+    // Check user ID from the token 
     if (payload.id !== req.params.id) {
       return res.status(403).json({ error: 'Unauthorized access to user profile' });
     }
 
-    // Pass it to the  middleware 
+    // Pass the payload to the next middleware
     req.user = payload;
 
     next();
