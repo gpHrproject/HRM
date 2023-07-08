@@ -1,4 +1,6 @@
 const Attendance = require('../model/attendance');
+const User = require("../model/user");
+const isAuth = require("../middleware/isAuth");
 
 // Get all attendances
 exports.getAllAttendances = async (req, res) => {
@@ -28,27 +30,36 @@ exports.getAttendanceById = async (req, res) => {
 };
 
 // Mark attendance
-exports.markAttendance = async (req, res) => {
-  const { date, status, user_id } = req.body;
-  try {
-    const attendance = await Attendance.create({ date, status, user_id });
-    res.status(201).json(attendance);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server Error' });
-  }
-};
+exports.markAttendance = [
+  isAuth('any'), // Apply isAuth middleware to allow any role to mark attendance
+  async (req, res) => {
+    const { date, status } = req.body;
+    const { userId } = req.user; // Extract user ID from the token payload
+
+    try {
+      const attendance = await Attendance.create({ date, status, user_id: userId });
+
+      // Increment presenceCount and attendanceCount for the user
+      await User.increment('presenceCount', { by: 1, where: { id: userId } });
+      await User.increment('attendanceCount', { by: 1, where: { id: userId } });
+
+      res.status(201).json(attendance);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server Error' });
+    }
+  },
+];
 
 // Update an attendance
 exports.updateAttendance = async (req, res) => {
   const { id } = req.params;
-  const { date, status, user_id } = req.body;
+  const { date, status } = req.body;
   try {
     const attendance = await Attendance.findByPk(id);
     if (attendance) {
       attendance.date = date;
       attendance.status = status;
-      attendance.user_id = user_id;
       await attendance.save();
       res.json(attendance);
     } else {
