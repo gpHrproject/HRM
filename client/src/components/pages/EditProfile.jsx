@@ -32,7 +32,7 @@ const EditProfilePopup = ({ currentUser, setShowEditPopup }) => {
       const userId = decodedToken.userId;
 
       axios
-        .put(`http://localhost:3000/users/${userId}`, updatedProfile, config)
+        .put(`http://localhost:3000/users/${userId}/profile`, updatedProfile, config)
         .then((response) => {
           currentUser.username = updatedProfile.username;
           currentUser.email = updatedProfile.email;

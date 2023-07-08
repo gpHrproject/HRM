@@ -12,20 +12,27 @@ const isAuth = (requiredRole) => (req, res, next) => {
   try {
     const payload = jwt.verify(token, 'your-secret-key');
 
-    // Check  role 
+    // Check the role
     if (requiredRole !== 'any' && payload.role !== requiredRole) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
-    // Check user ID from the token 
-    if (payload.id !== req.params.id) {
-      return res.status(403).json({ error: 'Unauthorized access to user profile' });
+    // Convert req.params.id to a number
+    const profileId = parseInt(req.params.id);
+
+    // Allow access to user's own profile for all roles
+    if (payload.userId === profileId) {
+      req.user = payload;
+      return next();
     }
 
-    // Pass the payload to the next middleware
-    req.user = payload;
+    // Allow HR role to access any user's profile
+    if (payload.role === 'hr') {
+      req.user = payload;
+      return next();
+    }
 
-    next();
+    return res.status(403).json({ error: 'Unauthorized access to user profile' });
   } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });
   }
