@@ -1,57 +1,107 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { Button, Form, Input, Space } from 'antd';
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const SubmitButton = ({ form, submittable }) => {
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      Submit
+    </Button>
+  );
+};
 
 const Register = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [submittable, setSubmittable] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [form] = Form.useForm();
+
+  const handleValuesChange = () => {
+    const values = form.getFieldsValue();
+    const isFormValid = Object.values(values).every((value) => value !== '');
+    setSubmittable(isFormValid);
+  };
+
+  const handleSubmit = (values) => {
     axios
-      .post("http://localhost:3000/register", { userName, email, password })
+      .post('http://localhost:3000/register', values)
       .then((response) => {
-        console.log("User added");
-        
+        console.log('User added');
       })
       .catch((err) => {
-        setError("Error adding the User");
+        setError('Error adding the User');
         console.error(err);
       });
+  };
+
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
     <div>
       <h1>Register new Employee</h1>
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Full Name:</label>
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+      <Form
+        form={form}
+        name="validateOnly"
+        layout="vertical"
+        autoComplete="off"
+        onFinish={handleSubmit}
+        onValuesChange={handleValuesChange}
+      >
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input value={username} onChange={handleUserNameChange} />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              type: 'email',
+            },
+          ]}
+        >
+          <Input value={email} onChange={handleEmailChange} />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input.Password value={password} onChange={handlePasswordChange} />
+        </Form.Item>
+        <Form.Item>
+          <Space>
+            <SubmitButton form={form} submittable={submittable} />
+            <Button htmlType="reset">Reset</Button>
+          </Space>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

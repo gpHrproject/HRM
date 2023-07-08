@@ -77,11 +77,12 @@ const UserController = {
   ],
   
   //user can update his profile
-   updateUser : [
-    isAuth('hr'),
+  updateUser: [
+    isAuth('any'),
     async (req, res) => {
       const { id } = req.params;
-      const { password } = req.body;
+      const { username, email, department, phoneNumber, address } = req.body;
+      const userIdFromToken = req.user.id; //  auth user ID  in req.user
   
       try {
         const user = await User.findByPk(id);
@@ -89,8 +90,20 @@ const UserController = {
           return res.status(404).json({ error: 'User not found' });
         }
   
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await user.update({ password: hashedPassword });
+        // Check auth user is the owner of the profile
+        if (userIdFromToken !== user.id) {
+          return res.status(403).json({ error: 'You are not authorized to update this profile' });
+        }
+  
+        // Update 
+        user.username = username;
+        user.email = email;
+        user.department = department;
+        user.phoneNumber = phoneNumber;
+        user.address = address;
+  
+        // Save
+        await user.save();
   
         res.json(user);
       } catch (error) {
@@ -99,6 +112,7 @@ const UserController = {
       }
     },
   ],
+  
 
 
  deleteUser: [
