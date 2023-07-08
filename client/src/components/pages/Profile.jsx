@@ -9,7 +9,7 @@ const UserProfile = () => {
     email: "",
     departement: "",
     phone_number: "",
-    address: ""
+    address: "",
   });
 
   const token = localStorage.getItem("token");
@@ -23,12 +23,15 @@ const UserProfile = () => {
   const [showEditPopup, setShowEditPopup] = useState(false);
 
   useEffect(() => {
-    console.log("userId",userId)
+    console.log("userId", userId);
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/users/${userId}/profile`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get(
+          `http://localhost:3000/users/${userId}/profile`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         setCurrentUser(response.data);
         setFormData({
@@ -37,11 +40,11 @@ const UserProfile = () => {
           departement: response.data.departement,
           phone_number: response.data.phone_number,
           address: response.data.address,
-          createdAt: response.data.createdAt
+          createdAt: response.data.createdAt,
         });
       } catch (error) {
         console.log(error);
-        alert('Failed to load user data');
+        alert("Failed to load user data");
       }
     };
 
@@ -53,21 +56,24 @@ const UserProfile = () => {
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3000/users/${userId}/profile`, formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await axios.put(
+        `http://localhost:3000/users/${userId}/profile`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setCurrentUser(response.data);
-      setShowEditPopup(false); // Close the popup after submitting the form
+      setShowEditPopup(false);
     } catch (error) {
       console.log(error);
-      // Handle error, e.g., show an error message
     }
   };
 
@@ -85,15 +91,21 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
-      <h2>Welcome: {currentUser.full_name}</h2>
-      <div className="container">
+      <div className="user-profile-top">
+        <h2>Welcome: {currentUser.full_name}</h2>
+        <div>
+          <button className="btn-profile-top"onClick={handleEditProfile}>Edit Profile</button>
+        </div>
+      </div>
+      <div className="profile-container">
         <div className="profile-field">
           <img
-            id="user-img"
+            className="user-img"
             src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
             alt="Profile"
           />
         </div>
+
         <div className="profile-info">
           <div className="profile-field">
             <label>Full Name:</label>
@@ -121,17 +133,12 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      
-        <div>
-          <button onClick={handleEditProfile}>Edit Profile</button>
-        </div>
-      
 
       {showEditPopup && (
         <div className="edit-popup">
           <div className="edit-popup-content">
             <h3>Edit Profile</h3>
-            <form onSubmit={handleSubmit}>
+            <form className="profile-form" onSubmit={handleSubmit}>
               <label>Full Name:</label>
               <input
                 type="text"
@@ -168,8 +175,8 @@ const UserProfile = () => {
                 onChange={handleChange}
               />
               <div className="popup-buttons">
-                <button type="submit">Save</button>
-                <button onClick={handlePopupClose}>Cancel</button>
+                <button className="btn-profile" type="submit">Save</button>
+                <button className="btn-profile"onClick={handlePopupClose}>Cancel</button>
               </div>
             </form>
           </div>
