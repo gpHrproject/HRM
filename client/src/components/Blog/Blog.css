@@ -16,6 +16,9 @@
   top: 96px;
   left: 47px;
 }
+.PostDetails{
+  margin: 2% 10%;
+}
 .PostDetails-container {
   display: flex;
   align-items: center;
@@ -52,6 +55,7 @@
 
 .pd-content {
   margin-bottom: 10px;
+  width: 60%;
 }
 
 .pd-button-container {
@@ -90,4 +94,26 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
+}
+/* update */
+.popUp-update-update{
+  display: flex;
+    flex-direction: column;
+    width: 108px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+}
+.Bnt-update-popup{
+  
+  margin-top: 10%;
+  font-family: emoji;
+  font-weight: bold;
+  position: relative;
+  padding: 1em 2.5em 1em 2.5em;
+  border: none;
+  background: #b8c1f0;
+  transition: all 0.1s linear;
+  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.1);
+  border-radius: 2em;
 }

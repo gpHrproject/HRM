@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import "./userStyle.css";
 import axios from "axios";
+import Booking from "../Booking/Booking";
 
 const UserProfile = () => {
   const [formData, setFormData] = useState({
@@ -94,7 +95,9 @@ const UserProfile = () => {
       <div className="user-profile-top">
         <h2>Welcome: {currentUser.full_name}</h2>
         <div>
-          <button className="btn-profile-top"onClick={handleEditProfile}>Edit Profile</button>
+          <button className="btn-profile-top" onClick={handleEditProfile}>
+            Edit Profile
+          </button>
         </div>
       </div>
       <div className="profile-container">
@@ -133,7 +136,10 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-
+      <div className="profile-Booking">
+        <span>day Off Booking</span>
+        <Booking />
+      </div>
       {showEditPopup && (
         <div className="edit-popup">
           <div className="edit-popup-content">
@@ -175,8 +181,12 @@ const UserProfile = () => {
                 onChange={handleChange}
               />
               <div className="popup-buttons">
-                <button className="btn-profile" type="submit">Save</button>
-                <button className="btn-profile"onClick={handlePopupClose}>Cancel</button>
+                <button className="btn-profile" type="submit">
+                  Save
+                </button>
+                <button className="btn-profile" onClick={handlePopupClose}>
+                  Cancel
+                </button>
               </div>
             </form>
           </div>

@@ -30,9 +30,7 @@ const Navbar = () => {
             <Link to="/profile" className="navbar-link">
               Profile
             </Link>
-            <Link to="/booking" className="navbar-link">
-              Booking
-            </Link>
+           
           </li>
         )}
         {token && role === "hr" && (
