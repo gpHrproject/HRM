@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import "./Style.css";
-import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -18,9 +17,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar-wrapper">
-      <div className="navbar-logo">
-        <img className="nav-logo" src={logo} alt="Logo" />
-      </div>
+      <h1 className="">HR</h1>
 
       <ul className="navbar-list">
         <li>
@@ -33,12 +30,15 @@ const Navbar = () => {
             <Link to="/profile" className="navbar-link">
               Profile
             </Link>
+            <Link to="/booking" className="navbar-link">
+              Booking
+            </Link>
           </li>
         )}
         {token && role === "hr" && (
           <li>
             <Link to="/ManageUsers" className="navbar-link">
-              Manage Employees
+              statistics
             </Link>
           </li>
         )}
@@ -57,7 +57,11 @@ const Navbar = () => {
                   </Link>
                 </div>
                 <div className="dropdown-item">
-                  <Link onClick={handleLogout} to="/login" className="dropdown-link">
+                  <Link
+                    onClick={handleLogout}
+                    to="/login"
+                    className="dropdown-link"
+                  >
                     Logout
                   </Link>
                 </div>
