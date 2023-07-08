@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import UserProfile from "./components/pages/Profile";
 import Register from "./components/Auth/Register/Register";
@@ -13,47 +13,33 @@ import Reporting from "./components/Reporting/Reporting";
 import CreateUser from "./components/createUser/CreateUser";
 
 const App = () => {
-  const [userData, setUserData] = useState([]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const getAllUsers = () => {
-        axios
-          .get("http://localhost:3000/users", config)
-          .then((res) => {
-            setUserData(res.data); 
-            console.log(res.data); 
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-      getAllUsers();
-    }
-  }, []);
-
   return (
     <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/profile" element={<UserProfile user={userData} />} />
-        <Route path="/ManageUsers" element={<ManageUsers user={userData} />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/reporting" element={ <Reporting />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/CreateUser" element={<CreateUser />} />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 };
 
-export default App;
+const AppRoutes = () => {
+  const location = useLocation();
 
+  const isAuthPage = location.pathname === "/" || location.pathname === "/login";
+
+  return (
+    <>
+      {!isAuthPage && <NavBar />}
+      <Routes>
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/ManageUsers" element={<ManageUsers />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/reporting" element={<Reporting />} />
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/CreateUser" element={<CreateUser />} />
+      </Routes>
+    </>
+  );
+};
+
+export default App;

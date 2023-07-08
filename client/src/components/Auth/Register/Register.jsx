@@ -11,7 +11,7 @@ const SubmitButton = ({ form, submittable }) => {
 };
 
 const Register = () => {
-  const [username, setUserName] = useState('');
+ 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -37,9 +37,7 @@ const Register = () => {
       });
   };
 
-  const handleUserNameChange = (e) => {
-    setUserName(e.target.value);
-  };
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -61,17 +59,7 @@ const Register = () => {
         onFinish={handleSubmit}
         onValuesChange={handleValuesChange}
       >
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input value={username} onChange={handleUserNameChange} />
-        </Form.Item>
+        
         <Form.Item
           name="email"
           label="Email"
