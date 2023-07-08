@@ -1,8 +1,36 @@
-import React from "react";
-import CreateUser from "../createUser/CreateUser.jsx"
-import './StyleManageUsers.css'
-const ManageUsers = ({ user }) => {
-  console.log("ManageUsers", user);
+import React, { useState, useEffect } from "react";
+import CreateUser from "../createUser/CreateUser.jsx";
+import axios from "axios";
+import './StyleManageUsers.css';
+
+const ManageUsers = () => {
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const getAllUsers = () => {
+        axios
+          .get("http://localhost:3000/users", config)
+          .then((res) => {
+            setUserData(res.data); 
+            console.log(res.data); 
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      getAllUsers();
+    }
+  }, []);
+
+  console.log("ManageUsers", userData);
+
   return (
     <div className="manage-users">
       <CreateUser/>
@@ -17,7 +45,7 @@ const ManageUsers = ({ user }) => {
           </tr>
         </thead>
         <tbody>
-          {user.map((e) => (
+          {userData.map((e) => (
             <tr key={e.id}>
               <td>{e.image}</td>
               <td>{e.username}</td>

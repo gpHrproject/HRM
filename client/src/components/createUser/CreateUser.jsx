@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import './Style.css'
 const CreateUser = ({ setShowEditPopup }) => {
   const [newUser, setNewUser] = useState({
     username: "",

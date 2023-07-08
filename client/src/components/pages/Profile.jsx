@@ -1,23 +1,91 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import "./userStyle.css";
-import EditProfilePopup from "./EditProfile";
+import axios from "axios";
 
-const UserProfile = ({ user }) => {
+const UserProfile = () => {
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    departement: "",
+    phone_number: "",
+    address: ""
+  });
+
   const token = localStorage.getItem("token");
-  const decodedToken = jwt_decode(token);
-  const userId = decodedToken.userId;
-  const currentUser = user.find((e) => e.id === userId);
+  let userId;
+  if (token) {
+    const decodedToken = jwt_decode(token);
+    userId = decodedToken.userId;
+  }
 
+  const [currentUser, setCurrentUser] = useState(null);
   const [showEditPopup, setShowEditPopup] = useState(false);
 
+  useEffect(() => {
+    console.log("userId",userId)
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/users/${userId}/profile`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setCurrentUser(response.data);
+        setFormData({
+          full_name: response.data.full_name,
+          email: response.data.email,
+          departement: response.data.departement,
+          phone_number: response.data.phone_number,
+          address: response.data.address,
+          createdAt: response.data.createdAt
+        });
+      } catch (error) {
+        console.log(error);
+        alert('Failed to load user data');
+      }
+    };
+
+    if (userId && token) {
+      fetchUserProfile();
+    }
+  }, [userId, token]);
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:3000/users/${userId}/profile`, formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setCurrentUser(response.data);
+      setShowEditPopup(false); // Close the popup after submitting the form
+    } catch (error) {
+      console.log(error);
+      // Handle error, e.g., show an error message
+    }
+  };
+
+  const handleEditProfile = () => {
+    setShowEditPopup(true);
+  };
+
+  const handlePopupClose = () => {
+    setShowEditPopup(false);
+  };
+
   if (!currentUser) {
-    return <div>No user found</div>;
+    return <div>Loading user profile...</div>;
   }
 
   return (
     <div className="user-profile">
-      <h2>Welcome: {currentUser.username}</h2>
+      <h2>Welcome: {currentUser.full_name}</h2>
       <div className="container">
         <div className="profile-field">
           <img
@@ -29,7 +97,7 @@ const UserProfile = ({ user }) => {
         <div className="profile-info">
           <div className="profile-field">
             <label>Full Name:</label>
-            <span>{currentUser.username}</span>
+            <span>{currentUser.full_name}</span>
           </div>
           <div className="profile-field">
             <label>Email:</label>
@@ -37,23 +105,76 @@ const UserProfile = ({ user }) => {
           </div>
           <div className="profile-field">
             <label>Department:</label>
-            <span>{currentUser.department}</span>
+            <span>{currentUser.departement}</span>
           </div>
           <div className="profile-field">
-            <label>phoneNumber:</label>
-            <span>{currentUser.department}</span>
+            <label>Phone Number:</label>
+            <span>{currentUser.phone_number}</span>
           </div>
           <div className="profile-field">
-            <label>adress:</label>
-            <span>{currentUser.department}</span>
+            <label>Address:</label>
+            <span>{currentUser.address}</span>
           </div>
-          
+          <div className="profile-field">
+            <label>created at:</label>
+            <span>{currentUser.createdAt}</span>
+          </div>
         </div>
       </div>
-      <div>
-        <button onClick={() => setShowEditPopup(true)}>Edit Profile</button>
-      </div>
-      {showEditPopup && <EditProfilePopup currentUser={currentUser} setShowEditPopup={setShowEditPopup} />}
+      
+        <div>
+          <button onClick={handleEditProfile}>Edit Profile</button>
+        </div>
+      
+
+      {showEditPopup && (
+        <div className="edit-popup">
+          <div className="edit-popup-content">
+            <h3>Edit Profile</h3>
+            <form onSubmit={handleSubmit}>
+              <label>Full Name:</label>
+              <input
+                type="text"
+                name="full_name"
+                value={formData.full_name}
+                onChange={handleChange}
+              />
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <label>Department:</label>
+              <input
+                type="text"
+                name="departement"
+                value={formData.departement}
+                onChange={handleChange}
+              />
+              <label>Phone Number:</label>
+              <input
+                type="text"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+              />
+              <label>Address:</label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+              />
+              <div className="popup-buttons">
+                <button type="submit">Save</button>
+                <button onClick={handlePopupClose}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
