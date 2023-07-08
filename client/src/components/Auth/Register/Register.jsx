@@ -1,6 +1,7 @@
 import { Button, Form, Input, Space } from 'antd';
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Style.css'
 
 const SubmitButton = ({ form, submittable }) => {
   return (
@@ -48,7 +49,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className='Rg-container'>
       <h1>Register new Employee</h1>
       {error && <p>{error}</p>}
       <Form

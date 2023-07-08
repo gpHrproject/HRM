@@ -1,18 +1,18 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { Button, Form, Input } from "antd";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './styleLogIn.css';
+import "../Register/Style.css";
 
 const LogIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
+  const handleLogin = (values) => {
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post("http://localhost:3000/login", values)
       .then((res) => {
         const token = res.data;
         localStorage.setItem("token", token);
@@ -20,30 +20,61 @@ const LogIn = () => {
         navigate("/blog");
       })
       .catch((err) => {
+        setError("Error logging in");
         console.log(err);
       });
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
-    <div className="login-container">
-      <p className="login-title">LogIn</p>
-      <form className="login-form" onSubmit={handleLogin}>
-        <label className="login-label">email:</label>
-        <input
-          type="email"
-          className="login-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label className="login-label">password:</label>
-        <input
-          type="password"
-          className="login-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="login-button">LogIn</button>
-      </form>
+    <div className="Rg-container">
+      <h1>LogIn</h1>
+      {error && <p>{error}</p>}
+      <Form
+        name="loginForm"
+        layout="vertical"
+        autoComplete="off"
+        onFinish={handleLogin}
+      >
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+            },
+          ]}
+        >
+          <Input value={email} onChange={handleEmailChange} />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input.Password
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            LogIn
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

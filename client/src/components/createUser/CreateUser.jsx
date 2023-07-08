@@ -45,7 +45,7 @@ const CreateUser = ({ setShowEditPopup }) => {
 
   return (
     <div className="edit-profile-popup">
-      <h3>Create User</h3>
+      
       <div className="form-field">
         <label>Full Name:</label>
         <input
@@ -74,8 +74,8 @@ const CreateUser = ({ setShowEditPopup }) => {
         />
       </div>
       <div className="popup-buttons">
-        <button onClick={handleCreateUser}>Create User</button>
-        <button onClick={handleCancel}>Cancel</button>
+        <button id="btn-add" className="btn" onClick={handleCreateUser}>add</button>
+        <button id="btn-cancel"className="btn" onClick={handleCancel}>Cancel</button>
       </div>
     </div>
   );
