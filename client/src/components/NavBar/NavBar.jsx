@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import "./Style.css";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import "./Style.css";
+import logo from "../../assets/logo.png";
 
-const Navbar = ({ role }) => {
+const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
 
   const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const role = decodedToken?.role;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -13,51 +17,63 @@ const Navbar = ({ role }) => {
   };
 
   return (
-    <nav className="nav-Container">
-      <ul className="nav-Container-ele">
+    <div className="navbar-wrapper">
+      <div className="navbar-logo">
+        <img className="nav-logo" src={logo} alt="Logo" />
+      </div>
+
+      <ul className="navbar-list">
         <li>
-          <Link to="/blog">Blog</Link>
+          <Link to="/blog" className="navbar-link">
+            Blog
+          </Link>
         </li>
-       
-        <li>
-          <Link to="/booking">dayOff</Link>
-        </li>
-        {token && (
+        {role !== "hr" && (
           <li>
-            <a href="/ManageUsers">Manage Employees</a>
+            <Link to="/profile" className="navbar-link">
+              Profile
+            </Link>
           </li>
         )}
-
-        <li>
-          {token && (
-            <div className="user-profile">
+        {token && role === "hr" && (
+          <li>
+            <Link to="/ManageUsers" className="navbar-link">
+              Manage Employees
+            </Link>
+          </li>
+        )}
+        {token && (
+          <div className="user-profile">
+            <div className="dropdown">
               <img
                 src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
                 alt=""
+                className="profile-image"
               />
-
-              <div className="dropdown">
-                <div className="dropdown-content">
-                  <div>
-                    <Link to="/profile">Profile</Link>
-                  </div>
-                  <div>
-                    <Link onClick={handleLogout} to="/login">
-                      Logout
+              <div className="dropdown-content">
+                <div className="dropdown-item">
+                  <Link to="/profile" className="dropdown-link">
+                    Profile
+                  </Link>
+                </div>
+                <div className="dropdown-item">
+                  <Link onClick={handleLogout} to="/login" className="dropdown-link">
+                    Logout
+                  </Link>
+                </div>
+                {showLogout && role === "hr" && (
+                  <div className="dropdown-item">
+                    <Link to="/ManageUsers" className="dropdown-link">
+                      Manage Users
                     </Link>
                   </div>
-                  {showLogout && role === "hr" && (
-                    <div>
-                      <Link to="/ManageUsers">manageUsers</Link>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
-          )}
-        </li>
+          </div>
+        )}
       </ul>
-    </nav>
+    </div>
   );
 };
 
