@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateUser from "../createUser/CreateUser.jsx";
 import axios from "axios";
 import './StyleManageUsers.css';
-import DisplayBooking from "../Booking/DisplayBooking.jsx";
+import ShowBooking from "../Booking/ShowBooking.jsx";
 
 const ManageUsers = () => {
   const [userData, setUserData] = useState([]);
@@ -58,7 +58,7 @@ const ManageUsers = () => {
         </tbody>
       </table>
       <div className="display-booking-wrap">
-       <DisplayBooking/>
+       <ShowBooking/>
       </div>
       
     </div>

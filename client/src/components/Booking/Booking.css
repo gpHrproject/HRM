@@ -1,25 +1,57 @@
-.booking-container{
-    margin: 20px;
-  }
-  
-  .Booking-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .Booking-table th,
-  .Booking-table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .Booking-table th {
-    color: black;
-    background-color:#b8c1f0;
-  }
-  
-  .Booking-table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
+.booking-container {
+  left: 260px;
+    position: absolute;
+    top: 353px;
+  width: 400px;
+  padding: 20px;
+  /* background-color: #f2f2f2; */
+  border: 1px solid #ccc;
+}
+.agenda{
+  width: 100%;
+}
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.booking-title {
+  margin: 0;
+}
+
+.booking-close-icon {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.booking-form {
+  margin-bottom: 20px;
+}
+
+.booking-label-name {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.booking-label-input {
+  width: 96%;
+  padding: 8px;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+}
+
+.btn-booking-sub {
+  padding: 8px 16px;
+  background-color: #ccbce5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+

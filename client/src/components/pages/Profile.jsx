@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
+
 import jwt_decode from "jwt-decode";
 import "./userStyle.css";
 import axios from "axios";
 import Booking from "../Booking/Booking";
-
 const UserProfile = () => {
+  const [showBooking, setShowBooking] = useState(false);
+
+  const handleBookDayOff = () => {
+    setShowBooking(true);
+  };
+  const handleCloseBooking = () => {
+    setShowBooking(false);
+  };
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -140,7 +148,10 @@ const UserProfile = () => {
         <div className="profile-field">
           <img
             className="user-img"
-            src={formData.image_url || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"}
+            src={
+              formData.image_url ||
+              "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
+            }
             alt="Profile"
           />
         </div>
@@ -172,7 +183,13 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-
+      <div>
+        <button className="btn-profile-top" onClick={handleBookDayOff}>
+          Book a day off
+        </button>
+        {showBooking && <Booking onClose={handleCloseBooking} />}
+      </div>
+      {/* showForm */}
       {showEditPopup && (
         <div className="edit-popup">
           <div className="edit-popup-content">
@@ -220,7 +237,11 @@ const UserProfile = () => {
                 name="image"
                 onChange={handleChange}
               />
-              <button type="button" onClick={handleImageUpload}>
+              <button
+                className="btn-upload-img"
+                type="button"
+                onClick={handleImageUpload}
+              >
                 Upload Image
               </button>
               <div className="popup-buttons">

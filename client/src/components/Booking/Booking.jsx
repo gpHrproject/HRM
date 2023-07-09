@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
+import { CloseOutlined } from '@ant-design/icons';
 const { RangePicker } = DatePicker;
 
-const Booking = () => {
+const Booking = ({ onClose }) => {
   const [data, setData] = useState([]);
   const [fullName, setFullName] = useState('');
   const [dataBooking, setDataBooking] = useState([]);
@@ -15,53 +16,50 @@ const Booking = () => {
     setData(formattedDates);
   };
 
-  console.log("start", data[0]);
-  console.log("end", data[1]);
-  console.log("name", fullName);
-
   const handlePostDate = () => {
     axios
       .post('http://localhost:3000/day-off-bookings', {
         start_date: data[0],
         end_date: data[1],
-        fullName: '', 
-        
+        fullName: fullName,
       })
       .then(response => {
         console.log(response.data);
-      
       })
       .catch(error => {
         console.error(error);
       });
   };
+
   useEffect(() => {
     const getBooking = () => {
       axios
         .get("http://localhost:3000/day-off-bookings")
         .then((res) => {
           setDataBooking(res.data);
-          
         })
         .catch((err) => {
           console.log(err);
-          
         });
     };
 
     getBooking();
   }, []);
- 
 
   return (
-    <div>
-      <form>
-        <label>Full Name:</label>
-        <input type="text" value={fullName} onChange={(e)=>e.target.value} />
-        <RangePicker onChange={handleDateChange} />
-        
+    <div className="booking-container">
+      <div className="booking-header">
+        <h3 className='booking-title'>Book a Day Off</h3>
+        <button className="booking-close-icon" onClick={onClose}>
+          <CloseOutlined />
+        </button>
+      </div>
+      <form className='booking-form'>
+        <label className='booking-label-name'>Full Name:</label>
+        <input className='booking-label-input' type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+        <RangePicker className='agenda' onChange={handleDateChange} />
       </form>
-      <button type="button" onClick={handlePostDate}>Submit</button>
+      <button className='btn-booking-sub' type="button" onClick={handlePostDate}>Submit</button>
     </div>
   );
 };
