@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import "./userStyle.css";
 import axios from "axios";
 import Booking from "../Booking/Booking";
-import ReportForm from "../Reporting/Reporting.jsx"
+
 const UserProfile = () => {
   const [formData, setFormData] = useState({
     full_name: "",
@@ -11,6 +11,7 @@ const UserProfile = () => {
     departement: "",
     phone_number: "",
     address: "",
+    image: null,
   });
 
   const token = localStorage.getItem("token");
@@ -24,7 +25,6 @@ const UserProfile = () => {
   const [showEditPopup, setShowEditPopup] = useState(false);
 
   useEffect(() => {
-    console.log("userId", userId);
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(
@@ -55,10 +55,45 @@ const UserProfile = () => {
   }, [userId, token]);
 
   const handleChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.name === "image") {
+      setFormData((prevState) => ({
+        ...prevState,
+        image: e.target.files[0],
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
+    }
+  };
+
+  const handleImageUpload = async () => {
+    const formDataWithImage = new FormData();
+    formDataWithImage.append("image", formData.image);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/uploadImage`,
+        formDataWithImage,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const imageUrl = response.data.imageUrl;
+
+      setFormData((prevState) => ({
+        ...prevState,
+        image_url: imageUrl,
+      }));
+    } catch (error) {
+      console.log(error);
+      alert("Failed to upload image");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -99,15 +134,13 @@ const UserProfile = () => {
             Edit Profile
           </button>
         </div>
-        <div>
-          <ReportForm />
-        </div>
       </div>
+
       <div className="profile-container">
         <div className="profile-field">
           <img
             className="user-img"
-            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
+            src={formData.image_url || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"}
             alt="Profile"
           />
         </div>
@@ -139,11 +172,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <div className="profile-Booking">
-        <span>day Off Booking</span>
-        <Booking />
-      </div>
-      
+
       {showEditPopup && (
         <div className="edit-popup">
           <div className="edit-popup-content">
@@ -184,6 +213,16 @@ const UserProfile = () => {
                 value={formData.address}
                 onChange={handleChange}
               />
+              <label>Profile Image:</label>
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                onChange={handleChange}
+              />
+              <button type="button" onClick={handleImageUpload}>
+                Upload Image
+              </button>
               <div className="popup-buttons">
                 <button className="btn-profile" type="submit">
                   Save
