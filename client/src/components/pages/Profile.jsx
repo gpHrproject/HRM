@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import "./userStyle.css";
 import axios from "axios";
 import Booking from "../Booking/Booking";
-
+import ReportForm from "../Reporting/Reporting.jsx"
 const UserProfile = () => {
   const [formData, setFormData] = useState({
     full_name: "",
@@ -99,6 +99,9 @@ const UserProfile = () => {
             Edit Profile
           </button>
         </div>
+        <div>
+          <ReportForm />
+        </div>
       </div>
       <div className="profile-container">
         <div className="profile-field">
@@ -140,6 +143,7 @@ const UserProfile = () => {
         <span>day Off Booking</span>
         <Booking />
       </div>
+      
       {showEditPopup && (
         <div className="edit-popup">
           <div className="edit-popup-content">
