@@ -2,9 +2,7 @@ const Sequelize = require('sequelize');
 
 
 
-
 const sequelize = new Sequelize('hrm', 'root', 'root', {
-
 
 
   host: 'localhost',

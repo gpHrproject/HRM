@@ -3,23 +3,29 @@ const sequelize = require('../db/db');
 const User = require('./user');
 
 class DayOffBooking extends Model {}
+
 DayOffBooking.init(
   {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+     
+    },
     start_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     end_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 'pending',
     },
   },
-  { sequelize, modelName: 'dayOffBooking' }
+  { sequelize, modelName: 'DayOffBooking' }
 );
 
 DayOffBooking.belongsTo(User, { foreignKey: 'user_id' });
