@@ -40,8 +40,8 @@ function Update({ setTrigger ,postId}) {
       </button>
 
       { model &&(
-        <div>
-        <div>
+        <div className="popUp-update-update">
+        <div className="form-update-popup">
           <label htmlFor="title">
             Title:
           </label>
@@ -54,7 +54,7 @@ function Update({ setTrigger ,postId}) {
           />
         </div>
       
-        <div >
+        <div  className="form-update-popup">
           <label htmlFor="title">
             Content:
           </label>
@@ -67,7 +67,7 @@ function Update({ setTrigger ,postId}) {
           />
         </div>
 
-        <div >
+        <div className="form-update-popup">
           <label htmlFor="image">
             set your image:
           </label>
@@ -80,8 +80,8 @@ function Update({ setTrigger ,postId}) {
           />
         </div>
 
-        <button className="Button" onClick={(e) => handleSubmit(e)}>
-          dddddddd
+        <button className="Bnt-update-popup" onClick={(e) => handleSubmit(e)}>
+          update
         </button>
 
     </div>

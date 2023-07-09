@@ -35,7 +35,7 @@ function Post({ setTrigger }) {
   return (
     <>
       <button onClick={toggleModel} className="btn-blog-post">
-        Post
+        Add Blog
       </button>
 
       {model && (
