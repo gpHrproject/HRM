@@ -3,27 +3,32 @@
   margin-bottom: 20px;
 }
 .user-profile-top {
+  
   margin: 0 3%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .profile-container {
+  margin: 2% 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .profile-info {
   display: flex;
-  width: 50%;
+  width: 60%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 
 .profile-field {
-  margin-bottom: 2%;
+  display: flex;
+  gap: 5px;
+  /* margin-bottom: 2%; */
   width: 50%;
 }
 
@@ -35,6 +40,7 @@ label {
 }
 /* popUp */
 .edit-popup {
+  border-radius: 5%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -134,9 +140,9 @@ label {
   font-weight: bold;
   position: relative;
 
-  padding: 2em 1.5em 2em 1.5em;
+  padding: 1em 1.5em 1em 1.5em;
   border: none;
-  background: #fff;
+  background: #ddd9e9;
   transition: all 0.1s linear;
   box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.1);
   border-radius: 2em;
@@ -156,6 +162,4 @@ label {
   transform: translate(-50%, -50%);
 }
 
-.btn-profile-top:hover {
-  background-color: blue;
-}
+

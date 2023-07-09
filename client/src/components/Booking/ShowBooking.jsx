@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import './Booking.css';
 
-const DisplayBooking = () => {
+const ShowBooking = () => {
   const [dataBooking, setDataBooking] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editedStatus, setEditedStatus] = useState("");
@@ -103,4 +103,4 @@ const DisplayBooking = () => {
   );
 };
 
-export default DisplayBooking;
+export default ShowBooking;
