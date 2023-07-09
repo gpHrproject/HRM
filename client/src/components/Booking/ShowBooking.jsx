@@ -54,7 +54,7 @@ const ShowBooking = () => {
   };
 
   return (
-    <div className="booking-container">
+    <div className="display-booking-container">
       {loading ? (
         <p>Loading...</p>
       ) : (

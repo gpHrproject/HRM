@@ -54,4 +54,33 @@
 
 
 
+/* showBooking  */
+.display-booking-container {
+  margin: 20px;
+  border: 1px solid rgba(26, 54, 126, 0.125);
+  border-radius: 0.25rem;
+}
 
+.Booking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Booking-table th,
+.Booking-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.Booking-table th {
+  color: black;
+  background-color:#b8c1f0;
+}
+
+.Booking-table tr:hover {
+  background-color: #f5f5f5;
+}
+.display-booking-wrap{
+  margin-top: 11%;
+}
