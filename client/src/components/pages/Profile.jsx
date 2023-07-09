@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BookOutlined,ScheduleOutlined } from '@ant-design/icons';
 
 import jwt_decode from "jwt-decode";
 import "./userStyle.css";
@@ -137,11 +138,18 @@ const UserProfile = () => {
     <div className="user-profile">
       <div className="user-profile-top">
         <h2>Welcome: {currentUser.full_name}</h2>
-        <div>
+        <div className="user-profile-top-btn">
           <button className="btn-profile-top" onClick={handleEditProfile}>
             Edit Profile
           </button>
+          <div>
+        <BookOutlined className="btn-profile-top" onClick={handleBookDayOff}/> 
+        
+        {showBooking && <Booking onClose={handleCloseBooking} />}
+      </div>
+      <ScheduleOutlined className="btn-profile-top" />
         </div>
+       
       </div>
 
       <div className="profile-container">
@@ -183,12 +191,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <div>
-        <button className="btn-profile-top" onClick={handleBookDayOff}>
-          Book a day off
-        </button>
-        {showBooking && <Booking onClose={handleCloseBooking} />}
-      </div>
+     
       {/* showForm */}
       {showEditPopup && (
         <div className="edit-popup">

@@ -42,6 +42,8 @@ const Navbar = () => {
         )}
         {token &&(
           <li onClick={handleLogout}>
+            <div className="green"></div>
+            <div className="red"></div>
             <Link to="/login" className="navbar-link">
             <LogoutOutlined />
             </Link>

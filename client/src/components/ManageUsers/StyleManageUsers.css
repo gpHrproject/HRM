@@ -1,12 +1,13 @@
 .manage-users {
     margin: 20px;
-    border: 1px solid rgba(26, 54, 126, 0.125);
-    border-radius: 0.25rem;
+  
   }
   
   .user-table {
     width: 100%;
     border-collapse: collapse;
+    border: 1px solid rgba(26, 54, 126, 0.125);
+    border-radius: 0.25rem;
   }
   
   .user-table th,
