@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Blog.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import './Blog.css'
 function Post({ setTrigger }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -34,14 +34,14 @@ function Post({ setTrigger }) {
 
   return (
     <>
-      <button onClick={toggleModel} className="btn-model">
+      <button onClick={toggleModel} className="btn-blog-post">
         Post
       </button>
 
       {model && (
         <div className="main">
           <div className="post-container">
-            <div>
+            <div className="form-group">
               <label htmlFor="title">Title:</label>
               <input
                 className="Input"
@@ -51,7 +51,7 @@ function Post({ setTrigger }) {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="title">Content:</label>
               <input
                 className="Input"
@@ -61,7 +61,7 @@ function Post({ setTrigger }) {
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="image">Set your image:</label>
               <input
                 className="Input"
@@ -72,7 +72,7 @@ function Post({ setTrigger }) {
               />
             </div>
             <button
-              className="Button"
+              className="btn-blog-post"
               type="submit"
               onClick={() => {
                 handleSubmit();
@@ -89,7 +89,3 @@ function Post({ setTrigger }) {
 }
 
 export default Post;
-
-
-
-

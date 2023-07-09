@@ -15,8 +15,8 @@
   }
   
   .user-table th {
-    color: white;
-    background-color: black;
+    color: black;
+    background-color:#b8c1f0;
   }
   
   .user-table tr:hover {

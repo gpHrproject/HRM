@@ -1,66 +1,77 @@
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #ddd9e9;
+  height: 65px;
+  margin: 0 2%;
+  box-shadow: 1px 5px 8px 3px rgba(124, 124, 124, 0.42);
+}
 
-  
-  .nav-Container-ele {
-    background-color: whitesmoke;
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .nav-Container-ele li {
-    margin-right: 10px;
-  }
-  
-  .nav-Container-ele li:last-child {
-    margin-right: 0;
-  }
-  
-  .nav-Container-ele li a {
-    text-decoration: none;
-    
-  }
-  
-  .user-profile {
-    position: relative;
-  }
-  
-  .user-profile img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 99%;
-    right: 3%;
-    width: 200px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    display: none;
-  }
-  
-  .user-profile:hover .dropdown {
-    display: block;
-  }
-  
-  .dropdown-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .dropdown-content a {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .dropdown-content a:hover {
-    text-decoration: underline;
-  }
-  
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  width: 115px;
+  height: 50px;
+}
+
+.navbar-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-link {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: larger;
+  font-family: sans-serif;
+}
+
+.user-profile {
+  position: relative;
+}
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-item {
+  margin-bottom: 5px;
+}
+
+.dropdown-link {
+  text-decoration: none;
+  color: #333;
+}
