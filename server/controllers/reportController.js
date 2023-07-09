@@ -45,9 +45,6 @@ const ReportController = {
           if (!report) {
             return res.status(404).json({ error: 'Report not found' });
           }
-          report.content = content;
-          report.submitted_at = submitted_at;
-          report.answered_at = answered_at;
           report.answer_content = answer_content;
           await report.save(); 
           res.status(200).json({ message: 'Report updated successfully', data: report });
