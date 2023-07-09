@@ -5,10 +5,27 @@
   padding: 10px;
   background-color: #ddd9e9;
   height: 30px;
-  margin: 0 2%;
+
   box-shadow: 1px 5px 8px 3px rgba(124, 124, 124, 0.42);
 }
-
+.red{
+  right: 20px;
+  position: absolute;
+  height: 1vh;
+  width: 8px;
+  background-color: #ff4848;
+  border-radius: 50%;
+  top: 12px;
+}
+.green {
+  right: 56px;
+  position: absolute;
+  height: 1vh;
+  width: 8px;
+  background-color: #14e614;
+  border-radius: 50%;
+  top: 12px;
+}
 .navbar-logo {
   display: flex;
   align-items: center;
