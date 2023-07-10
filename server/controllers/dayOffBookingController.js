@@ -52,6 +52,7 @@ const DayOffBookingController = {
       res.status(200).json({ message: 'Day off booking updated successfully', data: dayOffBooking });
     } catch (error) {
      console.log(error)
+     console.log("first",error)
       res.status(500).json({ error: 'Internal server error' });
     }
   },

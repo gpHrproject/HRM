@@ -8,7 +8,7 @@ DayOffBooking.init(
   {
     fullName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
      
     },
     start_date: {
