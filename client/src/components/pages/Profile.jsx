@@ -6,21 +6,20 @@ import "./userStyle.css";
 import axios from "axios";
 import Booking from "../Booking/Booking";
 const UserProfile = () => {
-  const [showBooking, setShowBooking] = useState(false);
-
   const handleBookDayOff = () => {
     setShowBooking(true);
   };
   const handleCloseBooking = () => {
     setShowBooking(false);
   };
+  const [showBooking, setShowBooking] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     departement: "",
     phone_number: "",
     address: "",
-    image: null,
+    image_profile: "",
   });
 
   const token = localStorage.getItem("token");
@@ -51,6 +50,7 @@ const UserProfile = () => {
           phone_number: response.data.phone_number,
           address: response.data.address,
           createdAt: response.data.createdAt,
+          image_profile: response.data.image_profile,
         });
       } catch (error) {
         console.log(error);
@@ -67,41 +67,13 @@ const UserProfile = () => {
     if (e.target.name === "image") {
       setFormData((prevState) => ({
         ...prevState,
-        image: e.target.files[0],
+        image_profile: e.target.files[0],
       }));
     } else {
       setFormData((prevState) => ({
         ...prevState,
         [e.target.name]: e.target.value,
       }));
-    }
-  };
-
-  const handleImageUpload = async () => {
-    const formDataWithImage = new FormData();
-    formDataWithImage.append("image", formData.image);
-
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/uploadImage`,
-        formDataWithImage,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const imageUrl = response.data.imageUrl;
-
-      setFormData((prevState) => ({
-        ...prevState,
-        image_url: imageUrl,
-      }));
-    } catch (error) {
-      console.log(error);
-      alert("Failed to upload image");
     }
   };
 
@@ -133,6 +105,7 @@ const UserProfile = () => {
   if (!currentUser) {
     return <div>Loading user profile...</div>;
   }
+  const createdAt = new Date(currentUser.createdAt).toLocaleString();
 
   return (
     <div className="user-profile">
@@ -143,13 +116,11 @@ const UserProfile = () => {
             Edit Profile
           </button>
           <div>
-        <BookOutlined className="btn-profile-top" onClick={handleBookDayOff}/> 
-        
-        {showBooking && <Booking onClose={handleCloseBooking} />}
-      </div>
-      <ScheduleOutlined className="btn-profile-top" />
+            <BookOutlined className="btn-profile-top" onClick={handleBookDayOff} />
+            {showBooking && <Booking onClose={handleCloseBooking} />}
+          </div>
+          <ScheduleOutlined className="btn-profile-top"  />
         </div>
-       
       </div>
 
       <div className="profile-container">
@@ -157,7 +128,7 @@ const UserProfile = () => {
           <img
             className="user-img"
             src={
-              formData.image_url ||
+              formData.image_profile ||
               "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
             }
             alt="Profile"
@@ -187,11 +158,11 @@ const UserProfile = () => {
           </div>
           <div className="profile-field">
             <label>created at:</label>
-            <span>{currentUser.createdAt}</span>
+            <span>{createdAt}</span>
           </div>
         </div>
       </div>
-     
+
       {/* showForm */}
       {showEditPopup && (
         <div className="edit-popup">
@@ -235,18 +206,11 @@ const UserProfile = () => {
               />
               <label>Profile Image:</label>
               <input
-                type="file"
-                accept="image/*"
-                name="image"
+                type="text"
+                name="image_profile"
+                value={formData.image_profile}
                 onChange={handleChange}
               />
-              <button
-                className="btn-upload-img"
-                type="button"
-                onClick={handleImageUpload}
-              >
-                Upload Image
-              </button>
               <div className="popup-buttons">
                 <button className="btn-profile" type="submit">
                   Save
@@ -262,5 +226,8 @@ const UserProfile = () => {
     </div>
   );
 };
+
+
+
 
 export default UserProfile;

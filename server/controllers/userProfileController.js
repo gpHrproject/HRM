@@ -5,7 +5,7 @@ const cloudinary = require("../db/cloudinary");
 
 const UserProfileController = {
   getUserProfile: [
-    isAuth('any'),
+    isAuth("any"),
     async (req, res) => {
       const { id } = req.params;
       try {
@@ -26,39 +26,49 @@ const UserProfileController = {
   ],
 
   updateUserProfile: [
-    isAuth('any'),
+    isAuth("any"),
     async (req, res) => {
       const { id } = req.params;
-      const newdata = req.body;
+      const {
+        full_name,
+        email,
+        phone_number,
+        address,
+        image_profile,
+        depertement,
+      } = req.body;
 
       try {
+        let updatedData = {
+          full_name,
+          email,
+          phone_number,
+          address,
+          depertement,
+        };
         const userProfile = await UserProfile.findOne({
           where: { user_id: id },
         });
 
         if (!userProfile) {
-          return res.status(404).json({ error: 'User profile not found' });
+          return res.status(404).json({ error: "User profile not found" });
         }
 
-        // Check  image file 
-        if (req.files && req.files.image) {
-          const imageFile = req.files.image;
-
-          // Upload  image  to Cloudinary
-          const result = await cloudinary.uploader.upload(imageFile.tempFilePath, {
-            folder: 'image_profile',
+        // Upload image to Cloudinary
+        if (image_profile) {
+          const result = await cloudinary.uploader.upload(image_profile, {
+            folder: "image_profile",
           });
-
-          newdata.image_url = result.secure_url; 
+          updatedData.image_profile = result.secure_url;
         }
 
         // Update the userProfile
-        await userProfile.update(newdata);
+        await userProfile.update(updatedData);
 
         res.json(userProfile);
       } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: "Internal server error" });
       }
     },
   ],
